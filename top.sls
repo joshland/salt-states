@@ -1,4 +1,5 @@
 base:
   '*':
+    - git
     - core
     - newrelic
