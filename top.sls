@@ -2,4 +2,3 @@ base:
   '*':
     - core
     - vim
-    - python
