@@ -1,16 +1,16 @@
-{% for username,users in pillar['users'].iteritems %}
+{% for username, user in pillar['users'].iteritems() %}
 elbaschid:
   user.present:
     - fullname: {{ username }}
-    - shell: {{ pillar['users']['shell'] }}
-    - home: {{ pillar['users']['home'] }}
-    - password: {{ pillar['users']['password'] }}
+    - shell: {{ user['shell'] }}
+    - home: {{ user['home'] }}
+    - password: {{ user['password'] }}
   ssh_auth.present:
     - user: {{ username }} 
-    - comment: {{ pillar['users']['email'] }}
-    - enc: {{ pillar['users']['ssh_key_type'] }}
+    - comment: {{ user['email'] }}
+    - enc: {{ user['ssh_key_type'] }}
     - names:
-      - {{ pillar['users']['ssh_key'] }}
+      - {{ user['ssh_key'] }}
     - require:
       - user: {{ username }}
 {% endfor %}
