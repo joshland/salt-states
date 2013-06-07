@@ -1,0 +1,6 @@
+Origin: Roadside Developer
+Label: Roadside Developer Repo
+Codename: precise
+Architectures: i386 amd64 source
+Components: main
+Description: Description of repository you are creating
