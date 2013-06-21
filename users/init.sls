@@ -1,5 +1,5 @@
 {% for username, user in pillar['users'].iteritems() %}
-elbaschid:
+{{ username }}:
   user.present:
     - fullname: {{ username }}
     - shell: {{ user['shell'] }}
