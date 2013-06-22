@@ -39,8 +39,7 @@ newrelic-plugin-agent:
   pip.installed
 
 /etc/newrelic/newrelic_plugin_agent.cfg:
-  - file.managed:
-    - makedirs: True
+  file.managed:
     - source: salt://newrelic/newrelic_plugin_agent.cfg
     - user: newrelic
     - group: newrelic
