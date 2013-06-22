@@ -40,7 +40,12 @@ newrelic-plugin-agent:
 
 /etc/newrelic/newrelic_plugin_agent.cfg:
   - file.managed:
+    - makedirs: True
     - source: salt://newrelic/newrelic_plugin_agent.cfg
+    - user: newrelic
+    - group: newrelic
+    - require:
+      - pip: newrelic-plugin-agent
 
 /var/run/newrelic:
   file.directory:
