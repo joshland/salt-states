@@ -1,0 +1,4 @@
+!!!! Note !!!!
+
+This server is managed using saltstack, adding and removing software should
+only be handled through the salt-master configuration.
