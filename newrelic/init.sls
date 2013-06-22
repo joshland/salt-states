@@ -1,3 +1,6 @@
+include:
+  - python 
+
 newrelic-ppa:
   pkgrepo.managed:
     - human_name: New Relic PPA
@@ -31,3 +34,22 @@ newrelic-sysmond-conf:
     - require:
       - pkg: newrelic-php5
       - pkgrepo: newrelic-ppa
+
+newrelic-plugin-agent:
+  pip.installed
+
+/etc/newrelic/newrelic_plugin_agent.cfg:
+  - file.managed:
+    - source: salt://newrelic/newrelic_plugin_agent.cfg
+
+/var/run/newrelic:
+  file.directory:
+    - makedirs: True
+    - user: newrelic
+    - group: newrelic
+
+/var/log/newrelic:
+  file.directory:
+    - makedirs: True
+    - user: newrelic
+    - group: newrelic
