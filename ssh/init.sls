@@ -20,6 +20,7 @@ root-ssh-key:
     - user: root
     - group: root
     - mode: 0644
+    - template: jinja
     - require:
       - pkg: openssh-server
 
