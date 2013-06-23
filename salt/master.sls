@@ -6,7 +6,7 @@ salt-master:
     - watch:
       - file: /etc/salt/master
 
-/srv/salt/projects:
+/srv/projects:
   file.directory:
     - makedirs: True
     - user: root
@@ -21,11 +21,11 @@ salt-master:
     - group: root
     - mode: 0644
     - require:
-      - file: /srv/salt/projects
+      - file: /srv/projects
 
 {% for name, project in pillar.projects.items() %}
 {{ project.repo }}:
   git.latest:
     - rev: master
-    - target: /srv/salt/projects/{{ name }}
+    - target: /srv/projects/{{ name }}
 {% endfor %}
