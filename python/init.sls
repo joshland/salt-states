@@ -27,3 +27,8 @@ pip-command:
     - source: salt://python/pip.conf
     - user: root
     - group: root
+
+raven:
+  pip.installed:
+    - require:
+      - cmd: pip-command
