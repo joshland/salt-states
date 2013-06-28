@@ -1,7 +1,7 @@
 {% for username, user in pillar['users'].iteritems() %}
 {{ username }}:
   user.present:
-    - fullname: {{ username }}
+    - fullname: {{ user['full_name'] }}
     - shell: {{ user['shell'] }}
     - home: {{ user['home'] }}
     - password: {{ user['password'] }}
