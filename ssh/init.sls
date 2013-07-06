@@ -5,6 +5,11 @@ openssh-server:
   pkg.installed:
     - require:
       - pkg: openssh-client
+  service.running:
+    - require:
+      - file: /etc/ssh/sshd_config
+    - watch:
+      - file: /etc/ssh/sshd_config
 
 root-ssh-key:
   cmd.run:
