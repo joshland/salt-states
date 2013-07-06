@@ -5,6 +5,12 @@
     - shell: {{ user['shell'] }}
     - home: {{ user['home'] }}
     - password: {{ user['password'] }}
+    {% if user.get('groups', []) %}
+    - groups:
+      {% for grp in user['groups'] %}
+      - {{ grp }}
+      {% endfor %}
+    {% endif %}
   ssh_auth.present:
     - user: {{ username }} 
     - comment: {{ user['email'] }}
