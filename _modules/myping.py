@@ -1,0 +1,2 @@
+def icanpingtoo():
+    return True
