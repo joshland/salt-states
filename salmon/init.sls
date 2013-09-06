@@ -20,6 +20,14 @@ include:
     - system_site_packages: False
     - require:
       - user: {{ salmon_user }}
+  file.directory:
+    - user: {{ salmon_user }}
+    - group: {{ salmon_user }}
+    - recurse:
+      - user
+      - group
+    - require:
+      - virtualenv: /home/{{ salmon_user }}/salmon/env
 
 salmon:
   pip.installed:
