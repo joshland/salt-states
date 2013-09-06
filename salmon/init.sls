@@ -50,5 +50,4 @@ salmon start:
     - cwd: /home/{{ salmon_user }}/salmon/env
     - require:
       - cmd: salmon collectstatic
-
 {% endwith %}

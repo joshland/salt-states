@@ -7,6 +7,7 @@ virtualenv-command:
     - require:
       - cmd: pip-command
 
+{% if 'builds' in pillar %}
 {% for build in pillar['builds'] %}
 {% with project_dir = ['/var', 'www', pillar['client'], pillar['project']]|join("/") %}
 {{ project_dir }}/virtualenvs/{{ build }}:
@@ -54,3 +55,4 @@ virtualenv-command:
       - mode
 {% endwith %}
 {% endfor %}
+{% endif %}

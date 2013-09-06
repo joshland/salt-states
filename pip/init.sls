@@ -6,7 +6,7 @@ pip-command:
     - name: easy_install pip
     - unless: test -f /usr/local/bin/pip
     - require:
-      - pkg: python-pkgs
+      - pkg: python-setuptools
 
 /root/.pip/pip.conf:
   file.managed:
