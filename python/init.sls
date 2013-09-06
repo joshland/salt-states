@@ -1,7 +1,9 @@
+include:
+  - pip
+
 python-pkgs:
   pkg.installed:
     - names:
-      - python-setuptools
       - python-dev
       - build-essential
 
@@ -14,19 +16,6 @@ python-imaging-deps:
       - libfreetype6-dev
       - liblcms1-dev
       - libwebp-dev
-
-pip-command:
-  cmd.run:
-    - name: easy_install pip
-    - unless: test -f /usr/local/bin/pip
-    - require:
-      - pkg: python-pkgs
-
-/root/.pip/pip.conf:
-  file.managed:
-    - source: salt://python/pip.conf
-    - user: root
-    - group: root
 
 raven:
   pip.installed:
