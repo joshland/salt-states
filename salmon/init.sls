@@ -9,10 +9,14 @@ include:
     - home: /home/{{ salmon_user }}
 
 /home/{{ salmon_user }}/salmon:
-  file.directory
+  file.directory:
+    - user: {{ salmon_user }}
+    - require:
+      - user: {{ salmon_user }}
 
 /home/{{ salmon_user }}/salmon/env:
   virtualenv.managed:
+    - user: {{ salmon_user }}
     - system_site_packages: False
     - require:
       - user: {{ salmon_user }}
