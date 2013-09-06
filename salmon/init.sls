@@ -16,18 +16,10 @@ include:
 
 /home/{{ salmon_user }}/salmon/env:
   virtualenv.managed:
-    - user: {{ salmon_user }}
+    - runas: {{ salmon_user }}
     - system_site_packages: False
     - require:
       - user: {{ salmon_user }}
-  file.directory:
-    - user: {{ salmon_user }}
-    - group: {{ salmon_user }}
-    - recurse:
-      - user
-      - group
-    - require:
-      - virtualenv: /home/{{ salmon_user }}/salmon/env
 
 salmon:
   pip.installed:
@@ -38,14 +30,27 @@ salmon:
 
 salmon init:
   cmd.run:
+    - name: source /home/{{ salmon_user }}/salmon/env/bin/activate && salmon init
+    - shell: /bin/bash
+    - unless: test -f /home/{{ salmon_user }}/.salmon/conf.py
     - user: {{ salmon_user }}
     - cwd: /home/{{ salmon_user }}/salmon/env
     - require:
       - pip: salmon
       - user: {{ salmon_user }}
 
+/home/{{ salmon_user }}/.salmon/checks.yaml:
+  file.managed:
+    - source: salt://salmon/checks.yaml
+    - user: {{ salmon_user }}
+    - group: {{ salmon_user }}
+    - require:
+      - cmd: salmon init
+
 salmon upgrade:
   cmd.run:
+    - name: source /home/{{ salmon_user }}/salmon/env/bin/activate && salmon upgrade --noinput
+    - shell: /bin/bash
     - user: {{ salmon_user }}
     - cwd: /home/{{ salmon_user }}/salmon/env
     - require:
@@ -53,6 +58,8 @@ salmon upgrade:
 
 salmon collectstatic:
   cmd.run:
+    - name: source /home/{{ salmon_user }}/salmon/env/bin/activate && salmon collectstatic --noinput
+    - shell: /bin/bash
     - user: {{ salmon_user }}
     - cwd: /home/{{ salmon_user }}/salmon/env
     - require:
@@ -60,6 +67,8 @@ salmon collectstatic:
 
 salmon start:
   cmd.run:
+    - name: source /home/{{ salmon_user }}/salmon/env/bin/activate && salmon start
+    - shell: /bin/bash
     - user: {{ salmon_user }}
     - cwd: /home/{{ salmon_user }}/salmon/env
     - require:
