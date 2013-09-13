@@ -8,10 +8,9 @@ sentry-user:
     - shell: /bin/bash
     - home: /home/sentry
 
-sentry-env:
+/home/sentry/sentry-app/sentry-env:
   virtualenv.managed:
     - runas: sentry
-    - cwd: /home/sentry/sentry-app
     - require:
       - user: sentry-user
 
@@ -21,4 +20,4 @@ sentry:
     - bin_env: /home/sentry/sentry-app/sentry-env
     - require:
       - cmd: pip-command
-      - virtualenv: sentry-env
+      - virtualenv: /home/sentry/sentry-app/sentry-env
