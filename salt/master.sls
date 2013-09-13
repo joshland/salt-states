@@ -1,6 +1,6 @@
 salt-master:
   pkg:
-    - installed
+    - latest
   service:
     - running
     - watch:
