@@ -45,6 +45,6 @@ postgres-template:
     - cwd: /var/lib/postgresql
     - unless: psql -U postgres -l|grep template1 |grep UTF8
     - require:
-      - file: postgresql
+      - file: postgres-template
       - service: postgresql
 {% endwith %}
