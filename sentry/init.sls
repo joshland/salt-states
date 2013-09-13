@@ -23,7 +23,6 @@ sentry-user:
     - encoding: UTF-8
     - owner: {{ pillar['sentry']['user'] }}
     - template: template1
-    - runas: postgres
     - require:
       - postgres_user: {{ pillar['sentry']['user'] }}
 
