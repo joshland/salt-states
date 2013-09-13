@@ -14,6 +14,18 @@ sentry-user:
     - require:
       - user: sentry-user
 
+{{ pillar['sentry']['user'] }}:
+  postgres_user.present:
+    - password: {{ pillar['sentry']['password'] }}
+
+{{ pillar['sentry']['database'] }}:
+  postgres_database.present:
+    - encoding: UTF-8
+    - owner: {{ pillar['sentry']['user'] }}
+    - template: template1
+    - require:
+      - postgres_user: {{ pillar['sentry']['user'] }}
+
 sentry:
   pip.installed:
     - name: sentry[postgres]
