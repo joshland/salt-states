@@ -1,3 +1,8 @@
+postgres-ppa:
+  pkgrepo.managed:
+    - hummanname: Martin Pitt's Postgres PPA
+    - ppa: pitti/postgresq
+
 {% with postgres_version = salt['pillar.get']('pkgs:postgres:version', '9.2') %}
 postgresql:
   pkg.installed:
