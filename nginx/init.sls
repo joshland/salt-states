@@ -7,7 +7,7 @@ nginx:
       - pkg: nginx
     - watch:
       - file: /etc/nginx/nginx.conf
-      {% for build in pillar['builds'] %}
+      {% for build in pillar.get('builds', []) %}
       {% with build_name = [build, pillar['project'], pillar['client']]|join("-") %}
       - file: /etc/nginx/sites-available/{{ build_name }}.conf
       {% endwith %}
@@ -23,7 +23,7 @@ nginx:
 /etc/nginx/sites-enabled/default:
   file.absent
 
-{% for build in pillar['builds'] -%}
+{% for build in pillar.get('builds', []) -%}
 {% with build_name = [build, pillar['project'], pillar['client']]|join("-") %}
 
 /etc/nginx/sites-available/{{ build_name }}.conf:
