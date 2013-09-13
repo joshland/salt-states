@@ -1,8 +1,8 @@
 include:
   - pip
 
-sentrypostgres:
+sentry:
   pip.installed:
+    - name: sentry[postgres]
     - require:
       - cmd: pip-command
-      - pkgrepo: postgres-ppa
