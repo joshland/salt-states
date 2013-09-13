@@ -6,6 +6,7 @@ openssh-server:
     - require:
       - pkg: openssh-client
   service.running:
+    - name: ssh
     - require:
       - file: /etc/ssh/sshd_config
     - watch:
