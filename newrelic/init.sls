@@ -25,6 +25,7 @@ newrelic-sysmond:
 
 newrelic-sysmond-conf:
   file.managed:
+    - name: /etc/newrelic/nrsysmond.cfg
     - source: salt://newrelic/nrsysmond.cfg.jinja
     - template: jinja
     - require:
