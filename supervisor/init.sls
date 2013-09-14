@@ -1,7 +1,7 @@
 supervisor:
   pkg:
     - installed
-  service.running
+  service.running:
     - require:
       - pkg: supervisor
     - watch:
