@@ -19,9 +19,9 @@ newrelic-sysmond:
   service.running:
     - watch:
       - pkg: newrelic-sysmond
-      - cmd: newrelic-sysmond-conf
+      - file: newrelic-sysmond-conf
     - require:
-      - cmd: newrelic-sysmond-conf
+      - file: newrelic-sysmond-conf
 
 newrelic-sysmond-conf:
   file.managed:
