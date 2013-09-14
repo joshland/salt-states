@@ -46,8 +46,8 @@ master: namaka.roadside-developer.com
 # Custom static grains for this minion can be specified here and used in SLS
 # files just like all other grains. This example sets 4 custom grains, with
 # the 'roles' grain having two values that can be matched against:
-grains:
 {% if pillar.get('roles') %}
+grains:
   roles:
 {% for role in pillar.get('roles', {}).get(grains['id'], []) %}
     - {{ role }}
