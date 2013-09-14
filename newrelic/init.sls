@@ -24,8 +24,9 @@ newrelic-sysmond:
       - cmd: newrelic-sysmond-conf
 
 newrelic-sysmond-conf:
-  cmd.run:
-    - name: nrsysmond-config --set license_key={{ pillar['newrelic']['license_key'] }}
+  file.managed:
+    - source: salt://newrelic/nrsysmond.cfg.jinja
+    - template: jinja
     - require:
       - pkg: newrelic-sysmond
 
