@@ -1,7 +1,7 @@
 supervisor:
   pip.installed
 
-/etc/supervisord.conf:
+/etc/supervisor/supervisord.conf:
   file.managed:
     - template: jinja
     - require:
