@@ -1,8 +1,13 @@
+include:
+  - base: salt
+
 salt-master:
-  pkg:
-    - latest
-  service:
-    - running
+  pkg.latest:
+    - require:
+      - pkgrepo: saltstack-ppa
+  service.running:
+    - require:
+      - pkg: salt-master
     - watch:
       - file: /etc/salt/master
 

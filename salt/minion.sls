@@ -1,8 +1,11 @@
+include:
+  - base: salt
+
 salt-minion:
-  pkg:
-    - latest
-  service:
-    - running
+  pkg.latest:
+    - require:
+      - pkgrepo: saltstack-ppa
+  service.running:
     - require:
       - pkg: salt-minion
     - watch:
