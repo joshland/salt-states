@@ -14,5 +14,6 @@
   cmd.run:
     - name: source /etc/profile
     - user: root
+    - shell: /bin/bash
     - require:
         - file: /etc/default/locale
