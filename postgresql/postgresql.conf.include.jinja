@@ -6,6 +6,10 @@ external_pid_file = '/var/run/postgresql/{{ postgres_version }}-main.pid'
 port = 5432
 unix_socket_directories = '/var/run/postgresql'
 
+{% if listen_addresses %}
+listen_addresses = '{{ listen_addresses|join(",") }}'
+{% endif %}
+
 lc_messages = '{{ locale }}'
 lc_monetary = '{{ locale }}'
 lc_numeric = '{{ locale }}'
