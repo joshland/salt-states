@@ -1,0 +1,25 @@
+data_directory = '/var/lib/postgresql/{{ postgres_version }}/main'
+hba_file = '/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf'
+ident_file = '/etc/postgresql/{{ postgres_version }}/main/pg_ident.conf'
+external_pid_file = '/var/run/postgresql/{{ postgres_version }}-main.pid'
+
+port = 5432
+unix_socket_directories = '/var/run/postgresql'
+
+lc_messages = '{{ locale }}'
+lc_monetary = '{{ locale }}'
+lc_numeric = '{{ locale }}'
+lc_time = '{{ locale }}'
+
+log_destination = 'csvlog'
+log_directory = 'pg_log'
+logging_collector = on
+log_filename = 'postgres-%Y-%m-%d_%H%M%S'
+log_rotation_age = 1d
+log_rotation_size = 1GB
+log_min_duration_statement = 250ms
+log_checkpoints = on
+log_connections = on
+log_disconnections = on
+log_lock_waits = on
+log_temp_files = 0

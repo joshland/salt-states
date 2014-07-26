@@ -1,9 +1,18 @@
+include:
+  - base: locale
+
+postgres-pitti-ppa:
+  pkgrepo.absent:
+    - ppa: pitti/postgresql
+    
 postgres-ppa:
   pkgrepo.managed:
-    - hummanname: Martin Pitt's Postgres PPA
-    - ppa: pitti/postgresq
+    - humanname: Postgres PPA
+    - name: deb http://apt.postgresql.org/pub/repos/apt {{ grains['oscodename'] }}-pgdg main
+    - key_url: http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
 
-{% with postgres_version = salt['pillar.get']('pkgs:postgres:version', '9.2') %}
+
+{% with postgres_version = salt['pillar.get']('pkgs:postgres:version') %}
 postgresql:
   pkg.installed:
     - names:
@@ -14,6 +23,8 @@ postgresql:
       - pkg: postgresql
     - watch:
       - file: /etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
+      - file: /etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+      - file: /etc/postgresql/{{ postgres_version }}/main/postgresql.conf.include
 
 
 /etc/postgresql/{{ postgres_version }}/main/pg_hba.conf:
@@ -24,27 +35,19 @@ postgresql:
 
 
 /etc/postgresql/{{ postgres_version }}/main/postgresql.conf:
-  file.managed:
-    - source: salt://postgresql/postgresql.conf.jinja
-    - template: jinja
-    - context:
-      postgres_version: {{ postgres_version }}
+  file.append:
+    - text: include_if_exists "/etc/postgresql/{{ postgres_version }}/main/postgresql.conf.include"
     - require:
       - pkg: postgresql
 
-postgres-template:
+/etc/postgresql/{{ postgres_version }}/main/postgresql.conf.include:
   file.managed:
-    - name: /etc/postgresql/{{ pillar['pkgs']['postgres']['version'] }}/main/make_template1_utf8.sh
-    - source: salt://postgresql/make_template1_utf8.sh
-    - user: postgres
-    - group: postgres
-    - mode: 755
-  cmd.run:
-    - name: bash /etc/postgresql/{{ pillar['pkgs']['postgres']['version'] }}/main/make_template1_utf8.sh
-    - user: postgres
-    - cwd: /var/lib/postgresql
-    - unless: psql -U postgres -l|grep template1 |grep UTF8
+    - source: salt://postgresql/postgresql.conf.include.jinja
+    - template: jinja
+    - context:
+      postgres_version: {{ postgres_version }}
+      locale: {{ pillar['locale'] }}
     - require:
-      - file: postgres-template
-      - service: postgresql
+      - pkg: postgresql
+      - file: /etc/postgresql/{{ postgres_version }}/main/postgresql.conf
 {% endwith %}
