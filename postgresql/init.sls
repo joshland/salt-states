@@ -36,7 +36,7 @@ postgresql:
 
 /etc/postgresql/{{ postgres_version }}/main/postgresql.conf:
   file.append:
-    - text: include_if_exists "/etc/postgresql/{{ postgres_version }}/main/postgresql.conf.include"
+    - text: include_if_exists '/etc/postgresql/{{ postgres_version }}/main/postgresql.conf.include'
     - require:
       - pkg: postgresql
 
