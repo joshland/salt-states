@@ -24,9 +24,12 @@ include:
 
 
 {% for extension in config.get('extensions', []) %}
-{{ extension }}:
-  postgres_extension.present:
-    - maintainance_db: {{ name }}
+postgres_extension_{{ extension }}:
+  cmd.run:
+    - name: psql -c "CREATE EXTENSION {{ extension }};"
+    - user: postgres
+    - onlyif: test -z `psql -c "select extname from pg_extension;" | grep {{ extension }}`
+    - shell: /bin/bash
     - require:
       - service: postgresql
       - postgres_user: {{ config['user'] }}
