@@ -15,7 +15,7 @@ include:
 {{ name }}:
   postgres_database.present:
     - owner: {{ config['user'] }}
-    - encoding: {{ pillar['locale'] }}
+    - encoding: UTF8
     - lc_collate: {{ pillar['locale'] }}
     - lc_ctype: {{ pillar['locale'] }}
     - require:
